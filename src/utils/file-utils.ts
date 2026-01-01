@@ -1,12 +1,12 @@
-import { readFileSync } from 'fs';
+import { readFile } from 'node:fs/promises';
 
 export function isNodeError(err: unknown) {
     return err instanceof Error && 'code' in err;
 }
 
-export function readTextFile(filePath: string): string[] {
+export async function readTextFile(filePath: string): Promise<string[]> {
     try {
-        const data = readFileSync(filePath, 'utf8');
+        const data = await readFile(filePath, 'utf8');
         return data.split('\n').filter((word: string) => !!word);
     } catch (err) {
         if (isNodeError(err)) {
