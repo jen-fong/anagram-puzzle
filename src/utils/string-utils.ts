@@ -2,11 +2,6 @@ export function normalizeString(str: string): string {
     return str.trim().toLowerCase();
 }
 
-export function getRandomIndexFromString(str: string): number {
-    const randomIndex = Math.floor(Math.random() * str.length);
-    return randomIndex;
-}
-
 export function shuffleString(str: string): string {
     const arr = str.split('');
 
@@ -21,9 +16,6 @@ export function shuffleString(str: string): string {
 }
 
 export function isConsonant(character: string): boolean {
-    // Regex matches any letter that is NOT a vowel, within the alphabet range.
-    // The 'i' flag makes it case-insensitive.
-    // The outer ^ ensures it matches only the entire single character.
     return /^[bcdfghjklmnpqrstvwxyz]$/i.test(character);
 }
 export function sortString(word: string): string {
