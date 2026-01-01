@@ -1,13 +1,22 @@
 import { defaultDict } from '@/utils/default-dict-utils';
-import { getRandomConsonant, getRandomVowel, random } from '@/utils/random-utils';
 import {
+    getRandomConsonant,
     getRandomIndexFromString,
+    getRandomVowel,
+    getRandomItemFromArray,
+} from '@/utils/random-utils';
+import {
     isConsonant,
     normalizeString,
     shuffleString,
     sortAndNormalizeString,
     sortString,
 } from '@/utils/string-utils';
+
+// I think this is enough times to try to get a nonword puzzle
+const MAX_SHUFFLE_ATTEMPTS = 10;
+// max amount of times to try to generate an unsolveable puzzle to prevent infinite loop
+const MAX_GENERATE_UNSOLVEABLE_ATTEMPTS = 500;
 
 export class AnagramPuzzle {
     private readonly data: Record<string, string[]>;
@@ -18,6 +27,10 @@ export class AnagramPuzzle {
         // so we avoid filtering constantly. We don't expect the words to change so it's fine to have
         // this separate structure to hold the words again at the expense of a bit of memory
         this.combinationsByLength = defaultDict(() => []);
+
+        if (!words.length) {
+            console.warn('No words used to initialize');
+        }
         this.initWords(words);
     }
 
@@ -26,9 +39,13 @@ export class AnagramPuzzle {
             const sortedAndNormalizedKey = sortAndNormalizeString(word);
             const normalizedWord = normalizeString(word);
             const isExistingCombination = this.hasKey(sortedAndNormalizedKey);
+
             // ts doesn't know about the proxy used for defaultDict but we know it should always set an array
             // so using ! to bypass the ts error
-            this.data[sortedAndNormalizedKey]!.push(normalizedWord);
+            const wordsForKey = this.data[sortedAndNormalizedKey]!;
+            if (!wordsForKey.includes(normalizedWord)) {
+                wordsForKey.push(normalizedWord);
+            }
             if (!isExistingCombination) {
                 const length = sortedAndNormalizedKey.length;
                 this.combinationsByLength[length]!.push(sortedAndNormalizedKey);
@@ -52,7 +69,7 @@ export class AnagramPuzzle {
         const availableLetters = ['x', 'y', 'z'];
         let placeholderUnsolveablePuzzle = '';
         for (let i = 0; i < difficulty; i++) {
-            placeholderUnsolveablePuzzle += random(availableLetters);
+            placeholderUnsolveablePuzzle += getRandomItemFromArray(availableLetters);
         }
         return placeholderUnsolveablePuzzle;
     }
@@ -61,25 +78,31 @@ export class AnagramPuzzle {
         const possibleWords = this.getCombinationsByDifficulty(difficulty);
 
         if (possibleWords.length === 0) {
-            throw new Error(`No words found for difficulty level: ${difficulty}.`);
+            console.warn(`No words found for difficulty level: ${difficulty}.`);
+            return '';
         }
-
         // "!" for ts workaround, we know that possibleWords has a length > 0 now and random will return
         // an actual string
-        const randomWord = random(possibleWords)!;
-        return shuffleString(randomWord);
+        const randomWord = getRandomItemFromArray(possibleWords)!;
+        const validSolutions = this.data[randomWord]!;
+
+        let shuffledPuzzle = shuffleString(randomWord);
+        let attempts = 0;
+        // Prevent real words from being returned from shuffle for puzzles
+        while (attempts < MAX_SHUFFLE_ATTEMPTS && validSolutions.includes(shuffledPuzzle)) {
+            attempts++;
+            shuffledPuzzle = shuffleString(randomWord);
+        }
+
+        return shuffledPuzzle;
     }
 
     public solve(puzzle: string, userGuess: string) {
         const sortedNormalizedPuzzle = sortString(normalizeString(puzzle));
         const normalizeUserGuess = normalizeString(userGuess);
 
-        if (!sortedNormalizedPuzzle) {
-            throw new Error('A puzzle is required');
-        }
-
-        if (!normalizeUserGuess) {
-            throw new Error('A user guess is required');
+        if (!sortedNormalizedPuzzle || !normalizeUserGuess) {
+            return false;
         }
 
         if (this.hasKey(sortedNormalizedPuzzle)) {
@@ -94,7 +117,7 @@ export class AnagramPuzzle {
     public getAnswer(puzzle: string) {
         const sortedPuzzle = sortString(normalizeString(puzzle));
         if (this.hasKey(sortedPuzzle)) {
-            const words = this.data[sortedPuzzle];
+            const words = this.data[sortedPuzzle]!;
 
             return words;
         }
@@ -102,11 +125,12 @@ export class AnagramPuzzle {
         return [];
     }
 
-    public generateUnsolveablePuzzle(difficulty: number) {
+    public generateUnsolveablePuzzle(difficulty: number): string {
         const possibleWords = this.getCombinationsByDifficulty(difficulty);
 
         if (possibleWords.length === 0) {
-            throw new Error(`No words found for difficulty level: ${difficulty}.`);
+            console.warn(`No words found for difficulty level: ${difficulty}.`);
+            return '';
         }
 
         let unsolveableWord = '';
@@ -114,15 +138,14 @@ export class AnagramPuzzle {
         // Adding this safeguard here. We could let the user set the maxAttempts, but I don't think it is necessary
         // to expose that logic to the user.
         let attempts = 0;
-        const maxAttempts = 500;
-        while (!unsolveableWord && attempts < maxAttempts) {
+        while (!unsolveableWord && attempts < MAX_GENERATE_UNSOLVEABLE_ATTEMPTS) {
             attempts++;
             // get random word
             // change one of letters constonants | vowels and sort
             // check if it's inside possible words
             // if not -> set word and return word
             // we continue
-            const randomWord = random(possibleWords)!;
+            const randomWord = getRandomItemFromArray(possibleWords)!;
             const randomIndex = getRandomIndexFromString(randomWord);
             const wordArray = randomWord.split('');
             const letterToSwap = wordArray[randomIndex];
