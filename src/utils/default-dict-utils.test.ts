@@ -22,7 +22,7 @@ describe('Default Dict Utils', () => {
     });
 
     it('should be able to create keys using the key passed', () => {
-        const dict = defaultDict<string, string>(key => `prefix_${key}`);
+        const dict = defaultDict<string, string>((key) => `prefix_${key}`);
 
         expect(dict.hello).toBe('prefix_hello');
         expect(dict.world).toBe('prefix_world');

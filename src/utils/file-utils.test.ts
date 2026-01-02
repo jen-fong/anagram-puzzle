@@ -22,7 +22,7 @@ describe('File Utils', () => {
 
         it('should throw a specific error if the file is not found (ENOENT)', async () => {
             const error = new Error();
-            (error as any).code = 'ENOENT';
+            (error as NodeJS.ErrnoException).code = 'ENOENT';
             vi.mocked(readFile).mockRejectedValue(error);
 
             await expect(readTextFile('missing.txt')).rejects.toThrow('Resource not found');
@@ -30,7 +30,7 @@ describe('File Utils', () => {
 
         it('should throw a specific error for permission issues (EACCES)', async () => {
             const error = new Error();
-            (error as any).code = 'EACCES';
+            (error as NodeJS.ErrnoException).code = 'EACCES';
             vi.mocked(readFile).mockRejectedValue(error);
 
             await expect(readTextFile('locked.txt')).rejects.toThrow('Permission denied');
@@ -38,7 +38,7 @@ describe('File Utils', () => {
 
         it('should throw an "Unexpected error" for any other error code', async () => {
             const error = new Error();
-            (error as any).code = 'EISDIR';
+            (error as NodeJS.ErrnoException).code = 'EISDIR';
             vi.mocked(readFile).mockRejectedValue(error);
 
             await expect(readTextFile('dir/')).rejects.toThrow('Unexpected error');
