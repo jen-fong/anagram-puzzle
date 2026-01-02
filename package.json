@@ -19,7 +19,9 @@
         "build": "tsup src/index.ts --format cjs,esm --dts --clean --shims && cp ./src/sowpods.txt dist/",
         "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
         "lint": "tsc",
-        "test": "vitest run"
+        "test": "vitest run",
+        "playground-js": "npx tsx src/playground-js.js",
+        "playground-ts": "npx tsx src/playground-ts.ts"
     },
     "keywords": [],
     "author": "",

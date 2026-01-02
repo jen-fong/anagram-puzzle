@@ -5,7 +5,7 @@ async function createAnagramPuzzlePlayground() {
     const puzzle = anagramPuzzle.generatePuzzle(5);
     const answers = anagramPuzzle.getAnswer(puzzle);
     const solveAttempt1 = anagramPuzzle.solve(puzzle, 'radio');
-    const solveAttempt2 = anagramPuzzle.solve('ioadr', 'radio');
+    const solveAttempt2 = anagramPuzzle.solve('ioadr', 'rADio    ');
     const unsolveable = anagramPuzzle.generateUnsolveablePuzzle(5);
     const unsolveableUndefined = anagramPuzzle.generateUnsolveablePuzzle();
     console.log('generated puzzle: ', puzzle);
