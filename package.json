@@ -7,9 +7,9 @@
     "types": "./dist/index.d.ts",
     "exports": {
         ".": {
+            "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
-            "require": "./dist/index.cjs",
-            "types": "./dist/index.d.ts"
+            "require": "./dist/index.cjs"
         }
     },
     "files": [
@@ -18,7 +18,8 @@
     "scripts": {
         "build": "tsup src/index.ts --format cjs,esm --dts --clean",
         "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
-        "lint": "tsc"
+        "lint": "tsc",
+        "test": "vitest run"
     },
     "keywords": [],
     "author": "",
@@ -29,6 +30,7 @@
         "ts-node": "^10.9.2",
         "tsup": "^8.5.1",
         "tsx": "^4.21.0",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "vitest": "^4.0.16"
     }
 }
