@@ -1,5 +1,5 @@
 {
-    "name": "crayon-anagram-puzzle",
+    "name": "anagram-puzzle",
     "version": "1.0.0",
     "description": "",
     "main": "./dist/index.cjs",
@@ -16,7 +16,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+        "build": "tsup src/index.ts --format cjs,esm --dts --clean --shims && cp ./src/sowpods.txt dist/",
         "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
         "lint": "tsc",
         "test": "vitest run"
