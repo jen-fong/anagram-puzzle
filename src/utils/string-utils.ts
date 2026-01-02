@@ -1,3 +1,5 @@
+import { CONSONANTS } from '@/utils/random-utils';
+
 export function normalizeString(str: string = ''): string {
     return str.trim().toLowerCase();
 }
@@ -16,7 +18,7 @@ export function shuffleString(str: string = ''): string {
 }
 
 export function isConsonant(character: string): boolean {
-    return /^[bcdfghjklmnpqrstvwxyz]$/i.test(character);
+    return CONSONANTS.includes(normalizeString(character));
 }
 export function sortString(word: string = ''): string {
     return word.split('').sort().join('');

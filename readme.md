@@ -1,5 +1,5 @@
 # Anagram Puzzle
-Take home portion of the anagram puzzle live coding assessment.
+Take home portion of the anagram puzzle live coding assessment. I've added unit tests, handled edge cases, added linting + auto formatting, and organized a bunch of files.
 
 ## 📦 Installation
 Please use node v24 and up.
@@ -22,10 +22,10 @@ If you have your own playground, you can follow these steps:
    ```
 I recommend using the playgrounds since it's all set up in this project so you don't have to do your own setup.
 
-### Testing
+## Testing
 `npm run test` to run vitest suites.
 
-### Technical Details
+## Technical Details
 There are two factories you can use to create a puzzle maker.
 - `createAnagramPuzzleMakerFromWords` - Creates a puzzle maker from a list of words
 - `createAnagramPuzzleMakerFromFile` - Creates a puzzle maker from a text file separated by new lines `\n`
@@ -38,9 +38,9 @@ Many edge cases were handled including:
 - Various inputs to public methods
 - Unsolveable puzzle will not run into an infinite loop if it can't generate an unsolveable puzzle by running up to 500 times max
 
-### Game Logic API
+## Game Logic API
 
-#### Generate a Puzzle
+### Generate a Puzzle
 Generates a scrambled string of a specific length. It ensures the result is not itself a valid word.
 
 ```
@@ -48,7 +48,7 @@ const puzzle = new AnagramPuzzle(['rat', 'tar', 'art', 'apple']).generatePuzzle(
 console.log(puzzle); // e.g., "atr"
 ```
 
-#### Solve and Validate
+### Solve and Validate
 Check if a user's guess is a valid anagram for the given puzzle based on the dictionary.
 
 ```
@@ -56,7 +56,7 @@ const puzzleMaker = puzzleMaker.solve('elppa', 'apple');
 console.log(isCorrect); // true
 ```
 
-#### Get Possible Answers
+### Get Possible Answers
 Retrieve all words from the dictionary that can be formed by the letters in the puzzle.
 
 ```
@@ -64,7 +64,7 @@ const answers = puzzleMaker.getAnswer('tca');
 console.log(answers); // ['cat', 'act']
 ```
 
-#### Generate Unsolvable Puzzles
+### Generate Unsolvable Puzzles
 Creates a scrambled string that has NO valid solution in the loaded dictionary.
 
 ```
