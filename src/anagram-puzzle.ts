@@ -14,9 +14,9 @@ import {
 } from '@/utils/string-utils';
 
 // I think this is enough times to try to get a nonword puzzle
-const MAX_SHUFFLE_ATTEMPTS = 10;
+export const MAX_SHUFFLE_ATTEMPTS = 10;
 // max amount of times to try to generate an unsolveable puzzle to prevent infinite loop
-const MAX_GENERATE_UNSOLVEABLE_ATTEMPTS = 500;
+export const MAX_GENERATE_UNSOLVEABLE_ATTEMPTS = 500;
 
 export class AnagramPuzzle {
     private readonly data: Record<string, string[]>;
