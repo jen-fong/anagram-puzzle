@@ -23,5 +23,5 @@ export function sortString(word: string): string {
 }
 
 export function sortAndNormalizeString(word: string): string {
-    return word.split('').sort().map(normalizeString).join('');
+    return word.split('').map(normalizeString).sort().join('');
 }
