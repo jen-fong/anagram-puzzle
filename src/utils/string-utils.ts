@@ -1,8 +1,8 @@
-export function normalizeString(str: string): string {
+export function normalizeString(str: string = ''): string {
     return str.trim().toLowerCase();
 }
 
-export function shuffleString(str: string): string {
+export function shuffleString(str: string = ''): string {
     const arr = str.split('');
 
     for (let i = arr.length - 1; i > 0; i--) {
@@ -18,10 +18,10 @@ export function shuffleString(str: string): string {
 export function isConsonant(character: string): boolean {
     return /^[bcdfghjklmnpqrstvwxyz]$/i.test(character);
 }
-export function sortString(word: string): string {
+export function sortString(word: string = ''): string {
     return word.split('').sort().join('');
 }
 
-export function sortAndNormalizeString(word: string): string {
+export function sortAndNormalizeString(word: string = ''): string {
     return word.split('').map(normalizeString).sort().join('');
 }

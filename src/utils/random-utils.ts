@@ -1,12 +1,12 @@
-export function getRandomIndex(length: number) {
+export function getRandomIndex(length: number = 0) {
     return Math.floor(Math.random() * length);
 }
 
-export function getRandomItemFromArray<T>(arr: T[]) {
+export function getRandomItemFromArray<T>(arr: T[] = []) {
     return arr[getRandomIndex(arr.length)];
 }
 
-export function getRandomIndexFromString(str: string): number {
+export function getRandomIndexFromString(str: string = ''): number {
     return getRandomIndex(str.length);
 }
 
