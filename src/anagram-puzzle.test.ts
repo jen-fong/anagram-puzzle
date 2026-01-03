@@ -59,7 +59,7 @@ describe('AnagramPuzzle', () => {
         });
 
         it('should return empty string when difficulty is not passed', () => {
-            // @ts-expect-error
+            // @ts-expect-error testing undefined input
             const result = anagramPuzzle.generatePuzzle();
             expect(result).toBe('');
         });
@@ -98,7 +98,7 @@ describe('AnagramPuzzle', () => {
         });
 
         it('should return empty array for invalid input', () => {
-            // @ts-expect-error
+            // @ts-expect-error testing invalid input
             expect(anagramPuzzle.getAnswer()).toEqual([]);
         });
     });
@@ -106,7 +106,7 @@ describe('AnagramPuzzle', () => {
     describe('generateUnsolveablePuzzle', () => {
         it('should attempt to create a puzzle that does not exist in the dictionary', () => {
             vi.spyOn(randomUtils, 'getRandomItemFromArray').mockReturnValue('act');
-            vi.spyOn(randomUtils, 'getRandomIndexFromString').mockReturnValue(0);
+            vi.spyOn(randomUtils, 'getRandomIndex').mockReturnValue(0);
             vi.spyOn(randomUtils, 'getRandomVowel').mockReturnValue('i');
             vi.spyOn(stringUtils, 'shuffleString').mockReturnValue('ict');
 
@@ -117,19 +117,19 @@ describe('AnagramPuzzle', () => {
 
         it('should return a placeholder after max attempts have been reached', () => {
             const impossibleAnagramPuzzle = new AnagramPuzzle(randomUtils.VOWELS);
-            vi.spyOn(randomUtils, 'getRandomIndexFromString').mockReturnValue(0);
+            vi.spyOn(randomUtils, 'getRandomIndex').mockReturnValue(0);
             vi.spyOn(randomUtils, 'getRandomVowel').mockReturnValue('a');
 
             const result = impossibleAnagramPuzzle.generateUnsolveablePuzzle(1);
 
             expect(['x', 'y', 'z']).toContain(result);
-            expect(randomUtils.getRandomIndexFromString).toHaveBeenCalledTimes(
+            expect(randomUtils.getRandomIndex).toHaveBeenCalledTimes(
                 MAX_GENERATE_UNSOLVEABLE_ATTEMPTS
             );
         });
 
         it('should return empty string when difficulty is not passed', () => {
-            // @ts-expect-error
+            // @ts-expect-error testing undefined input
             const result = anagramPuzzle.generateUnsolveablePuzzle();
             expect(result).toBe('');
         });

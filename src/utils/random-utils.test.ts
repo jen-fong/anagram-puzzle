@@ -37,19 +37,6 @@ describe('Random Utils', () => {
         });
     });
 
-    describe('getRandomIndexFromString', () => {
-        it('returns a random index for a string', () => {
-            mathSpy.mockReturnValue(0.75);
-            const items = 'abc';
-            expect(randomUtils.getRandomIndexFromString(items)).toBe(2);
-        });
-
-        it('returns 0 for an empty string', () => {
-            mathSpy.mockReturnValue(0.5);
-            expect(randomUtils.getRandomIndexFromString('')).toBe(0);
-        });
-    });
-
     describe('getRandomConsonant', () => {
         it('returns a random consonant', () => {
             mathSpy.mockReturnValue(0.75);

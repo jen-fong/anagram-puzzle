@@ -1,9 +1,9 @@
 import { defaultDict } from '@/utils/default-dict-utils';
 import {
     getRandomConsonant,
-    getRandomIndexFromString,
     getRandomVowel,
     getRandomItemFromArray,
+    getRandomIndex,
 } from '@/utils/random-utils';
 import {
     isConsonant,
@@ -146,7 +146,7 @@ export class AnagramPuzzle {
             // if not -> set word and return word
             // we continue
             const randomWord = getRandomItemFromArray(possibleWords)!;
-            const randomIndex = getRandomIndexFromString(randomWord);
+            const randomIndex = getRandomIndex(randomWord.length);
             const wordArray = randomWord.split('');
             const letterToSwap = wordArray[randomIndex];
             const randomLetter =

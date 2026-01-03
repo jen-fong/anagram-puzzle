@@ -1,5 +1,5 @@
 # Anagram Puzzle
-Take home portion of the anagram puzzle live coding assessment. I've added unit tests, handled edge cases, added linting + auto formatting, and organized a bunch of files.
+Take home portion of the anagram puzzle live coding assessment. I've added unit tests, handled edge cases, added linting + auto formatting, and organized a bunch of files to declutter the anagram puzzle file.
 
 ## 📦 Installation
 Please use node v24 and up.

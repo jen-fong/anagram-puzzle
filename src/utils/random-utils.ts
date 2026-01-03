@@ -6,10 +6,6 @@ export function getRandomItemFromArray<T>(arr: T[] = []) {
     return arr[getRandomIndex(arr.length)];
 }
 
-export function getRandomIndexFromString(str: string = ''): number {
-    return getRandomIndex(str.length);
-}
-
 export const CONSONANTS = [
     'b',
     'c',
