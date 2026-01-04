@@ -1,9 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import {
-    createAnagramPuzzleMakerFromFile,
-    createAnagramPuzzleMakerFromWords,
-    DEFAULT_WORDS_FILE,
-} from '@/factories';
+import { createAnagramPuzzleMaker } from '@/factories';
 import * as fileUtils from '@/utils/file-utils';
 import { AnagramPuzzle } from '@/anagram-puzzle';
 
@@ -18,11 +14,11 @@ describe('Puzzle Factory', () => {
         vi.restoreAllMocks();
     });
 
-    describe('createAnagramPuzzleMakerFromFile', () => {
-        it('should return an AnagramPuzzle instance when file has words', async () => {
+    describe('createAnagramPuzzleMaker', () => {
+        it('should return an AnagramPuzzle instance when file source has words', async () => {
             vi.mocked(fileUtils.readTextFile).mockResolvedValue(['apple', 'banana']);
 
-            const result = await createAnagramPuzzleMakerFromFile('test.txt');
+            const result = await createAnagramPuzzleMaker('test.txt');
 
             expect(result).toBeInstanceOf(AnagramPuzzle);
             expect(fileUtils.readTextFile).toHaveBeenCalledWith('test.txt');
@@ -31,28 +27,17 @@ describe('Puzzle Factory', () => {
         it('should throw an error if the file is empty', async () => {
             vi.mocked(fileUtils.readTextFile).mockResolvedValue([]);
 
-            await expect(createAnagramPuzzleMakerFromFile('empty.txt')).rejects.toThrow(
-                'File at empty.txt is empty!'
+            await expect(createAnagramPuzzleMaker('empty.txt')).rejects.toThrow(
+                'No words found for source empty.txt'
             );
         });
-    });
 
-    describe('createAnagramPuzzleMakerFromWords', () => {
         it('should create puzzle from provided words', async () => {
             const words = ['cat', 'act'];
-            const result = await createAnagramPuzzleMakerFromWords(words);
+            const result = await createAnagramPuzzleMaker(words);
 
             expect(result).toBeInstanceOf(AnagramPuzzle);
             expect(fileUtils.readTextFile).not.toHaveBeenCalled();
-        });
-
-        it('should fallback to file if words array is empty', async () => {
-            vi.mocked(fileUtils.readTextFile).mockResolvedValue(['apple', 'banana']);
-
-            const result = await createAnagramPuzzleMakerFromWords([]);
-
-            expect(fileUtils.readTextFile).toHaveBeenCalledWith(DEFAULT_WORDS_FILE);
-            expect(result).toBeInstanceOf(AnagramPuzzle);
         });
     });
 });

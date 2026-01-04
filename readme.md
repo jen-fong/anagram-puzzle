@@ -9,16 +9,19 @@ Please use node v24 and up.
 ## 🛠️ Playground
 I have provided two files, `playground-ts.ts` and `playground-js.js` with some prefilled code so you can play around in there if you want. You can use the javascript file if you don't want to use typescript. The environment is all configured so everything should work.
 
-`npm run playground-js` or `npm run playground-ts` to run the files and out the results into your terminal.
+`npm run playground-js` or `npm run playground-ts` to run the files and out the results into your terminal. It uses tsx watch mode so you won't need to reload the file every time
 
 If you have your own playground, you can follow these steps:
 1. Run `npm run build` - this will output a dist file
 2. import the dist file directly in your file like so
    ```
     // Depending on how your package.json is set up, you can import the commonjs or esmodule version
-    const { createAnagramPuzzleMakerFromFile } = require('path/to/anagram-puzzle/dist/index.cjs');
+    const { createAnagramPuzzleMaker } = require('path/to/anagram-puzzle/dist/index.cjs');
 
-    import { createAnagramPuzzleMakerFromFile } from 'path/to/anagram-puzzle/dist/index.js';
+    import { createAnagramPuzzleMaker } from 'path/to/anagram-puzzle/dist/index.js';
+
+    // Direct AnagramPuzzle but will only accept words array
+    import { AnagramPuzzle } from 'path/to/anagram-puzzle/dist/index.js';
    ```
 I recommend using the playgrounds since it's all set up in this project so you don't have to do your own setup.
 
@@ -26,9 +29,10 @@ I recommend using the playgrounds since it's all set up in this project so you d
 `npm run test` to run vitest suites.
 
 ## Technical Details
-There are two factories you can use to create a puzzle maker.
-- `createAnagramPuzzleMakerFromWords` - Creates a puzzle maker from a list of words
-- `createAnagramPuzzleMakerFromFile` - Creates a puzzle maker from a text file separated by new lines `\n`
+You can create a puzzle maker using a factory method. It will accept an array of words or a file path in string format
+`createAnagramPuzzleMaker`
+- `createAnagramPuzzleMaker(['list', 'of', 'words']);`
+- `createAnagramPuzzleMaker('path/to/word/file.txt');`
 
 Many edge cases were handled including:
 - Empty list of words

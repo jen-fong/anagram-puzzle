@@ -1,8 +1,19 @@
-import { createAnagramPuzzleMakerFromFile } from '@/factories';
+import { createAnagramPuzzleMaker } from '@/factories';
 // this is playground for testing and playing around with the puzzle maker using javascript
+
+let cachedPuzzle = null;
+
+async function getPuzzle() {
+    if (!cachedPuzzle) {
+        console.log('Reading file and initializing puzzle...');
+        cachedPuzzle = await createAnagramPuzzleMaker();
+    }
+    return cachedPuzzle;
+}
+
 async function createAnagramPuzzlePlayground() {
-    const anagramPuzzle = await createAnagramPuzzleMakerFromFile();
-    const puzzle = anagramPuzzle.generatePuzzle(5);
+    const anagramPuzzle = await getPuzzle();
+    const puzzle = anagramPuzzle.generatePuzzle(3);
     const answers = anagramPuzzle.getAnswer(puzzle);
     const solveAttempt1 = anagramPuzzle.solve(puzzle, 'radio');
     const solveAttempt2 = anagramPuzzle.solve('ioadr', 'rADio    ');
