@@ -48,7 +48,7 @@ Many edge cases were handled including:
 Generates a scrambled string of a specific length. It ensures the result is not itself a valid word.
 
 ```
-const puzzle = new AnagramPuzzle(['rat', 'tar', 'art', 'apple']).generatePuzzle(3); 
+const puzzle = new AnagramPuzzleMaker(['rat', 'tar', 'art', 'apple']).generatePuzzle(3); 
 console.log(puzzle); // e.g., "atr"
 ```
 
