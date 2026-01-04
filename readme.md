@@ -9,7 +9,7 @@ Please use node v24 and up.
 ## 🛠️ Playground
 I have provided two files, `playground-ts.ts` and `playground-js.js` with some prefilled code so you can play around in there if you want. You can use the javascript file if you don't want to use typescript. The environment is all configured so everything should work.
 
-`npm run playground-js` or `npm run playground-ts` to run the files and out the results into your terminal. It uses tsx watch mode so you won't need to reload the file every time
+`npm run playground-js` or `npm run playground-ts` to run the files and out the results into your terminal. It uses tsx watch mode so you can edit the file as you need and it will output to the terminal.
 
 If you have your own playground, you can follow these steps:
 1. Run `npm run build` - this will output a dist file
@@ -29,7 +29,7 @@ I recommend using the playgrounds since it's all set up in this project so you d
 `npm run test` to run vitest suites.
 
 ## Technical Details
-You can create a puzzle maker using a factory method. It will accept an array of words or a file path in string format
+You can create a puzzle maker using a factory method. I chose this way so that the `AnagramPuzzleMaker` only has to worry about handling an array of words and generating and solving puzzles without file i/o. It will accept an array of words or a file path in string format.
 `createAnagramPuzzleMaker`
 - `createAnagramPuzzleMaker(['list', 'of', 'words']);`
 - `createAnagramPuzzleMaker('path/to/word/file.txt');`

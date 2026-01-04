@@ -18,7 +18,7 @@ export const MAX_SHUFFLE_ATTEMPTS = 10;
 // max amount of times to try to generate an unsolveable puzzle to prevent infinite loop
 export const MAX_GENERATE_UNSOLVEABLE_ATTEMPTS = 500;
 
-export class AnagramPuzzle {
+export class AnagramPuzzleMaker {
     private readonly data: Record<string, string[]>;
     private readonly combinationsByLength: Record<string, string[]>;
     constructor(words: string[]) {

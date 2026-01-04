@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createAnagramPuzzleMaker } from '@/factories';
 import * as fileUtils from '@/utils/file-utils';
-import { AnagramPuzzle } from '@/anagram-puzzle';
+import { AnagramPuzzleMaker } from '@/anagram-puzzle-maker';
 
 vi.mock('@/utils/file-utils');
 
-describe('Puzzle Factory', () => {
+describe('AnagramPuzzleMaker Factory', () => {
     beforeEach(() => {
         vi.resetAllMocks();
     });
@@ -15,12 +15,12 @@ describe('Puzzle Factory', () => {
     });
 
     describe('createAnagramPuzzleMaker', () => {
-        it('should return an AnagramPuzzle instance when file source has words', async () => {
+        it('should return an AnagramPuzzleMaker instance when file source has words', async () => {
             vi.mocked(fileUtils.readTextFile).mockResolvedValue(['apple', 'banana']);
 
             const result = await createAnagramPuzzleMaker('test.txt');
 
-            expect(result).toBeInstanceOf(AnagramPuzzle);
+            expect(result).toBeInstanceOf(AnagramPuzzleMaker);
             expect(fileUtils.readTextFile).toHaveBeenCalledWith('test.txt');
         });
 
@@ -32,11 +32,11 @@ describe('Puzzle Factory', () => {
             );
         });
 
-        it('should create puzzle from provided words', async () => {
+        it('should create AnagramPuzzleMaker from provided words', async () => {
             const words = ['cat', 'act'];
             const result = await createAnagramPuzzleMaker(words);
 
-            expect(result).toBeInstanceOf(AnagramPuzzle);
+            expect(result).toBeInstanceOf(AnagramPuzzleMaker);
             expect(fileUtils.readTextFile).not.toHaveBeenCalled();
         });
     });
