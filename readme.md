@@ -7,7 +7,7 @@ Please use node v24 and up.
 `npm install`
 
 ## 🛠️ Playground
-I have provided two files, `playground-ts.ts` and `playground-js.js` with some prefilled code so you can play around in there if you want. You can use the javascript file if you don't want to use typescript. The environment is all configured so everything should work.
+I have provided two files, `playground-ts.ts` and `playground-js.js` with some prefilled code so you can play around in there if you want. You can use the javascript file if you don't want to use typescript. The environment is all configured so everything should work without you needing to set anything up.
 
 `npm run playground-js` or `npm run playground-ts` to run the files and out the results into your terminal. It uses tsx watch mode so you can edit the file as you need and it will output to the terminal.
 
@@ -20,8 +20,8 @@ If you have your own playground, you can follow these steps:
 
     import { createAnagramPuzzleMaker } from 'path/to/anagram-puzzle/dist/index.js';
 
-    // Direct AnagramPuzzle but will only accept words array
-    import { AnagramPuzzle } from 'path/to/anagram-puzzle/dist/index.js';
+    // Direct AnagramPuzzleMaker but will only accept words array
+    import { AnagramPuzzleMaker } from 'path/to/anagram-puzzle/dist/index.js';
    ```
 I recommend using the playgrounds since it's all set up in this project so you don't have to do your own setup.
 
