@@ -7,7 +7,7 @@ export function isNodeError(err: unknown) {
 export async function readTextFile(filePath: string): Promise<string[]> {
     try {
         const data = await readFile(filePath, 'utf8');
-        return data.split('\n').filter((word: string) => !!word);
+        return data.split(/\r?\n/).filter((word: string) => !!word);
     } catch (err) {
         if (isNodeError(err)) {
             // Two common errors related to opening files. I throw a generic error for all other errors
