@@ -19,8 +19,8 @@ export const MAX_SHUFFLE_ATTEMPTS = 10;
 export const MAX_GENERATE_UNSOLVEABLE_ATTEMPTS = 500;
 
 export class AnagramPuzzleMaker {
-    private readonly data: Record<string, string[]>;
-    private readonly combinationsByLength: Record<string, string[]>;
+    private data: Record<string, string[]>;
+    private combinationsByLength: Record<string, string[]>;
     constructor(words: string[]) {
         this.data = defaultDict(() => []);
         // Store data in separate object by length like this { '3': ['act', 'art'] }
