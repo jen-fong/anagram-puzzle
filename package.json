@@ -19,8 +19,8 @@
         "build": "tsup src/index.ts --format cjs,esm --dts --clean --shims && cp ./src/sowpods.txt dist/",
         "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
         "test": "vitest run",
-        "playground-js": "npx tsx src/playground-js.js",
-        "playground-ts": "npx tsx src/playground-ts.ts",
+        "playground-js": "npx tsx watch src/playground-js.js",
+        "playground-ts": "npx tsx watch src/playground-ts.ts",
         "lint": "eslint src/**/*.ts",
         "lint:fix": "eslint src/**/*.ts --fix",
         "format": "prettier --write \"src/**/*.ts\""
