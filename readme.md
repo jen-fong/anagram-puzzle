@@ -42,6 +42,11 @@ Many edge cases were handled including:
 - Various inputs to public methods
 - Unsolveable puzzle will not run into an infinite loop if it can't generate an unsolveable puzzle by running up to 500 times max
 
+Future considerations:
+- Allow people to try to guess every word for the anagram in the solve method, instead of just one
+  - The getAnswer method currently returns all the answers to quickly check against
+- Consider difficulty level based on scoring like scrabble where letters have different points
+
 ## Game Logic API
 
 ### Generate a Puzzle
